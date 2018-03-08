@@ -1,57 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
- Copyright 2016 Google Inc.
- 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- 
-      http://www.apache.org/licenses/LICENSE-2.0
- 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
--->
+
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginEnd="15dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/gorilla_info"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:id="@+id/textView" />
-
-        <com.google.vr.sdk.widgets.video.VrVideoView
-            android:id="@+id/video_view"
-            android:layout_width="match_parent"
-            android:scrollbars="none"
-            android:layout_height="250dip"/>
-
-        <!-- Seeking UI & progress indicator.-->
-        <SeekBar
-            android:id="@+id/seek_bar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_height="32dp"
-            android:layout_width="fill_parent"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp">
         <TextView
-            android:id="@+id/status_text"
-            android:text="Loading Video..."
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:textSize="12sp"
-            android:paddingStart="32dp"
-            android:paddingEnd="32dp"/>
-    </LinearLayout>
+            android:text="@string/para"
+            android:textSize="20sp"
+            android:textAlignment="textStart"
+            android:textStyle="bold"
+            android:gravity="start"
+
+            />
+
+        <EditText
+            android:id="@+id/edtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="write the above paragraph here.."
+            android:inputType="textVisiblePassword|textMultiLine"
+            android:layout_below="@id/text1"
+            />
+
+        <Button
+            android:id="@+id/btnsubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_below="@id/edtext"
+            android:layout_alignEnd="@id/edtext"
+            android:layout_alignRight="@id/edtext"/>
+
+    </RelativeLayout>
+
 </ScrollView>

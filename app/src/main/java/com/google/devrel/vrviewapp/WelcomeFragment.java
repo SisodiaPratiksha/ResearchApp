@@ -14,11 +14,13 @@
  */
 package com.google.devrel.vrviewapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,6 +39,7 @@ import java.io.IOException;
  */
 public class WelcomeFragment extends Fragment {
 
+    private static final String TAG = "touch";
     private VrPanoramaView panoWidgetView;
     private ImageLoaderTask backgroundImageLoaderTask;
     float Xstart, Xend, Ystart, Yend, Xswipe;
@@ -50,9 +53,67 @@ public class WelcomeFragment extends Fragment {
         View v =  inflater.inflate(R.layout.welcome_fragment, container,false);
         panoWidgetView = (VrPanoramaView) v.findViewById(R.id.pano_view);
         touchListener(v);
-        path = getContext().getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
+        Context c = getContext();
+        path = c.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
         filepath = new File(path + "touch.csv");
+        Log.d(TAG, "onCreate: Initializing touch services");
         return v;
+    }
+
+    private void touchListener(View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN){
+                    Xstart  = event.getX();
+                    Ystart = event.getY();
+                    Xswipe = Xstart;
+                    String adown = "Xstart:"+String.valueOf(Xstart)+ ", Ystart: "+ String.valueOf(Ystart)+ ", Pressure: "+ event.getPressure()+"\n";
+
+                    try {
+
+                        FileWriter fw = new FileWriter(filepath,true);
+                        fw.append(adown);
+                        fw.flush();
+                        fw.close();
+                        Toast.makeText(getActivity(),"Ystart: "+Ystart,Toast.LENGTH_SHORT).show();
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    //Toast.makeText(getActivity(), "start"+String.valueOf(Xstart)+"  "+String.valueOf(Ystart), Toast.LENGTH_SHORT).show();
+                }
+                if(event.getActionMasked() == MotionEvent.ACTION_UP){
+                    Xend = event.getX();
+                    Yend = event.getY();
+                    Xswipe = Xend;
+
+                    String aup = "Xend"+String.valueOf(Xend)+ ", Yend: "+ String.valueOf(Yend)+ ", Pressure: "+ event.getPressure()+ "\n";
+
+                    try {
+
+                        FileWriter fw = new FileWriter(filepath,true);
+                        fw.append(aup);
+                        fw.flush();
+                        fw.close();
+                        Toast.makeText(getActivity(),"X end: "+Xend,Toast.LENGTH_SHORT).show();
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(getActivity(),"Pressure:" +event.getPressure(),Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+
+                //Toast.makeText(getContext() ,"The x and Y are:"++" "+,Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -100,57 +161,5 @@ public class WelcomeFragment extends Fragment {
         loadPanoImage();
     }
 
-    private void touchListener(View view) {
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getActionMasked() == MotionEvent.ACTION_DOWN){
-                    Xstart  = event.getX();
-                    Ystart = event.getY();
-                    Xswipe = Xstart;
-                    String adown = "Xstart:"+String.valueOf(Xstart)+ ", Ystart: "+ String.valueOf(Ystart)+ ", Pressure: "+ event.getPressure()+"\n";
 
-                    try {
-
-                        FileWriter fw = new FileWriter(filepath,true);
-                        fw.append(adown);
-                        fw.flush();
-                        fw.close();
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    //Toast.makeText(getActivity(), "start"+String.valueOf(Xstart)+"  "+String.valueOf(Ystart), Toast.LENGTH_SHORT).show();
-                }
-                if(event.getActionMasked() == MotionEvent.ACTION_UP){
-                    Xend = event.getX();
-                    Yend = event.getY();
-                    Xswipe = Xend;
-
-                    String aup = "Xend"+String.valueOf(Xend)+ ", Yend: "+ String.valueOf(Yend)+ ", Pressure: "+ event.getPressure()+ "\n";
-
-                    try {
-
-                        FileWriter fw = new FileWriter(filepath,true);
-                        fw.append(aup);
-                        fw.flush();
-                        fw.close();
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(getActivity(),"Pressure:" +event.getPressure(),Toast.LENGTH_SHORT).show();
-                }
-
-
-
-
-
-                //Toast.makeText(getContext() ,"The x and Y are:"++" "+,Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-    }
 }

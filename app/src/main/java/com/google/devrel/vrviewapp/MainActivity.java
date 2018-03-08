@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
                         return new WelcomeFragment();
                     case 1:
                         return new GorillaFragment();
-                    case 2:
-                        return new writing();
                 }
                 return null;
             }
