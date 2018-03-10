@@ -25,6 +25,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.devrel.vrviewapp.com.google.devrel.vrviewapp.ImageLoaderTask;
@@ -39,6 +41,8 @@ import java.io.IOException;
  */
 public class WelcomeFragment extends Fragment {
 
+    Button b1;
+    EditText ed1;
     private static final String TAG = "touch";
     private VrPanoramaView panoWidgetView;
     private ImageLoaderTask backgroundImageLoaderTask;
@@ -52,12 +56,36 @@ public class WelcomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.welcome_fragment, container,false);
         panoWidgetView = (VrPanoramaView) v.findViewById(R.id.pano_view);
+        b1 = (Button) v.findViewById(R.id.btncount);
+        ed1 = (EditText) v.findViewById(R.id.editcount);
         touchListener(v);
         Context c = getContext();
         path = c.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
         filepath = new File(path + "touch.csv");
         Log.d(TAG, "onCreate: Initializing touch services");
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String value = ed1.getText().toString();
+                try {
+
+                    FileWriter fw = new FileWriter(filepath,true);
+                    fw.append("Count of objects found"+value);
+                    fw.flush();
+                    fw.close();
+                    Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
+        });
         return v;
+
+
     }
 
     private void touchListener(View view) {

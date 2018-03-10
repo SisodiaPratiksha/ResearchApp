@@ -14,6 +14,7 @@
  */
 package com.google.devrel.vrviewapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -88,6 +89,10 @@ public class GorillaFragment extends Fragment {
                         {
                             e.printStackTrace();
                         }
+
+                        Intent i;
+                        i = new Intent(getActivity(),expe.class);
+                        startActivity(i);
                     }
                 });
             }
