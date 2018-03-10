@@ -74,7 +74,7 @@ public class WelcomeFragment extends Fragment {
                     fw.append("Count of objects found"+value);
                     fw.flush();
                     fw.close();
-                    Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
                 }
                 catch (IOException e)
                 {
@@ -104,7 +104,7 @@ public class WelcomeFragment extends Fragment {
                         fw.append(adown);
                         fw.flush();
                         fw.close();
-                        Toast.makeText(getActivity(),"Ystart: "+Ystart,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),"Ystart: "+Ystart,Toast.LENGTH_SHORT).show();
                     }
                     catch (IOException e)
                     {
@@ -125,19 +125,14 @@ public class WelcomeFragment extends Fragment {
                         fw.append(aup);
                         fw.flush();
                         fw.close();
-                        Toast.makeText(getActivity(),"X end: "+Xend,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),"X end: "+Xend,Toast.LENGTH_SHORT).show();
                     }
                     catch (IOException e)
                     {
                         e.printStackTrace();
                     }
-                    Toast.makeText(getActivity(),"Pressure:" +event.getPressure(),Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(),"Pressure:" +event.getPressure(),Toast.LENGTH_SHORT).show();
                 }
-
-
-
-
-
                 //Toast.makeText(getContext() ,"The x and Y are:"++" "+,Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -175,7 +170,7 @@ public class WelcomeFragment extends Fragment {
         viewOptions.inputType = VrPanoramaView.Options.TYPE_STEREO_OVER_UNDER;
 
         // use the name of the image in the assets/ directory.
-        String panoImageName = "sample_converted.jpg";
+        String panoImageName = "converted.jpg";
 
         // create the task passing the widget view and call execute to start.
         task = new ImageLoaderTask(panoWidgetView, viewOptions, panoImageName);

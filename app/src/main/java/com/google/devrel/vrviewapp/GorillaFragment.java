@@ -23,6 +23,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -48,7 +49,7 @@ public class GorillaFragment extends Fragment {
     Button btn;
     String path;
     File filepath;
-
+    float Xstart, Xend, Ystart, Yend, Xswipe;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,7 +84,7 @@ public class GorillaFragment extends Fragment {
                             fw.append(String.valueOf(counter));
                             fw.flush();
                             fw.close();
-                            Toast.makeText(getContext(),"Saved"+String.valueOf(counter),Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(),"Saved"+String.valueOf(counter),Toast.LENGTH_SHORT).show();
                         }
                         catch (IOException e)
                         {
@@ -97,46 +98,59 @@ public class GorillaFragment extends Fragment {
                 });
             }
 
-        /*editText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(event.getAction() == KeyEvent.ACTION_DOWN)
-                if (keyCode == KeyEvent.KEYCODE_DEL) {
-                        count = count + 1;                    //String c = String.valueOf(count);
-                    Log.d(TAG,"value:"+count);
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        //@Override
-                        public void onClick(View v) {
-                            try {
-
-                                FileWriter fw = new FileWriter(filepath);
-                                fw.append(String.valueOf(count));
-                                fw.flush();
-                                fw.close();
-                                Toast.makeText(getContext(),"Saved"+String.valueOf(count),Toast.LENGTH_SHORT).show();
-                            }
-                            catch (IOException e)
-                            {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-
-
-
-                }
-                return true;*/
-
-
         });
         return view;
     }
 
+    private void touchListener(View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN){
+                    Xstart  = event.getX();
+                    Ystart = event.getY();
+                    Xswipe = Xstart;
+                    String adown = "Xstart:"+String.valueOf(Xstart)+ ", Ystart: "+ String.valueOf(Ystart)+ ", Pressure: "+ event.getPressure()+"\n";
 
+                    try {
 
+                        FileWriter fw = new FileWriter(filepath,true);
+                        fw.append(adown);
+                        fw.flush();
+                        fw.close();
+                        //Toast.makeText(getActivity(),"Ystart: "+Ystart,Toast.LENGTH_SHORT).show();
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    //Toast.makeText(getActivity(), "start"+String.valueOf(Xstart)+"  "+String.valueOf(Ystart), Toast.LENGTH_SHORT).show();
+                }
+                if(event.getActionMasked() == MotionEvent.ACTION_UP){
+                    Xend = event.getX();
+                    Yend = event.getY();
+                    Xswipe = Xend;
 
+                    String aup = "Xend"+String.valueOf(Xend)+ ", Yend: "+ String.valueOf(Yend)+ ", Pressure: "+ event.getPressure()+ "\n";
 
+                    try {
 
-
+                        FileWriter fw = new FileWriter(filepath,true);
+                        fw.append(aup);
+                        fw.flush();
+                        fw.close();
+                        //Toast.makeText(getActivity(),"X end: "+Xend,Toast.LENGTH_SHORT).show();
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    // Toast.makeText(getActivity(),"Pressure:" +event.getPressure(),Toast.LENGTH_SHORT).show();
+                }
+                //Toast.makeText(getContext() ,"The x and Y are:"++" "+,Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
 
 }

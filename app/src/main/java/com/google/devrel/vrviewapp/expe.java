@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -21,6 +22,7 @@ public class expe extends AppCompatActivity {
     Button btn;
     String path;
     File filepath;
+    float Xstart, Xend, Ystart, Yend, Xswipe;
     private static final String TAG = "touch";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,4 +67,61 @@ public class expe extends AppCompatActivity {
         });
 
     }
+
+    private void touchListener(View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN){
+                    Xstart  = event.getX();
+                    Ystart = event.getY();
+                    Xswipe = Xstart;
+                    String adown = "Xstart:"+String.valueOf(Xstart)+ ", Ystart: "+ String.valueOf(Ystart)+ ", Pressure: "+ event.getPressure()+"\n";
+
+                    try {
+
+                        FileWriter fw = new FileWriter(filepath,true);
+                        fw.append(adown);
+                        fw.flush();
+                        fw.close();
+                        //Toast.makeText(getActivity(),"Ystart: "+Ystart,Toast.LENGTH_SHORT).show();
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    //Toast.makeText(getActivity(), "start"+String.valueOf(Xstart)+"  "+String.valueOf(Ystart), Toast.LENGTH_SHORT).show();
+                }
+                if(event.getActionMasked() == MotionEvent.ACTION_UP){
+                    Xend = event.getX();
+                    Yend = event.getY();
+                    Xswipe = Xend;
+
+                    String aup = "Xend"+String.valueOf(Xend)+ ", Yend: "+ String.valueOf(Yend)+ ", Pressure: "+ event.getPressure()+ "\n";
+
+                    try {
+
+                        FileWriter fw = new FileWriter(filepath,true);
+                        fw.append(aup);
+                        fw.flush();
+                        fw.close();
+                        //Toast.makeText(getActivity(),"X end: "+Xend,Toast.LENGTH_SHORT).show();
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    // Toast.makeText(getActivity(),"Pressure:" +event.getPressure(),Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+
+                //Toast.makeText(getContext() ,"The x and Y are:"++" "+,Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
+
 }
