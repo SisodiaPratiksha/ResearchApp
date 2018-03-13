@@ -21,6 +21,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -45,6 +46,7 @@ import java.util.Locale;
  */
 public class GorillaFragment extends Fragment {
 
+    TextView text;
     int counter = 0;
     Button btn;
     String path;
@@ -58,12 +60,13 @@ public class GorillaFragment extends Fragment {
         filepath = new File(path+"backpress.csv");
         final EditText editText = (EditText) view.findViewById(R.id.edtext);
         btn = (Button) view.findViewById(R.id.btnsubmit);
+        text = (TextView) view.findViewById(R.id.text1);
+        text.setMovementMethod(new ScrollingMovementMethod());
 
         editText.addTextChangedListener(new TextWatcher()
         {
             public void afterTextChanged(Editable s)
             {
-
 
             }
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
@@ -73,27 +76,32 @@ public class GorillaFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
                 counter = counter + 1;
+                final String answer = editText.getText().toString();
 
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        try {
-
-                            FileWriter fw = new FileWriter(filepath);
-                            fw.append(String.valueOf(counter));
-                            fw.flush();
-                            fw.close();
-                            //Toast.makeText(getContext(),"Saved"+String.valueOf(counter),Toast.LENGTH_SHORT).show();
-                        }
-                        catch (IOException e)
+                        if(answer.isEmpty())
                         {
-                            e.printStackTrace();
+                            Toast.makeText(getActivity(),"Please re-type the text",Toast.LENGTH_LONG).show();
                         }
+                        else {
+                            try {
 
-                        Intent i;
-                        i = new Intent(getActivity(),expe.class);
-                        startActivity(i);
+                                FileWriter fw = new FileWriter(filepath);
+                                fw.append(String.valueOf(counter) + "\n" + answer + "\n");
+                                fw.flush();
+                                fw.close();
+                                //Toast.makeText(getContext(),"Saved"+String.valueOf(counter),Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Intent i;
+                            i = new Intent(getActivity(), search.class);
+                            startActivity(i);
+                        }
                     }
                 });
             }

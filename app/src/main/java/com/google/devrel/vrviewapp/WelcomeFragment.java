@@ -14,10 +14,14 @@
  */
 package com.google.devrel.vrviewapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
@@ -25,6 +29,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,148 +47,15 @@ import java.io.IOException;
  */
 public class WelcomeFragment extends Fragment {
 
-    Button b1;
-    EditText ed1;
-    private static final String TAG = "touch";
-    private VrPanoramaView panoWidgetView;
-    private ImageLoaderTask backgroundImageLoaderTask;
-    float Xstart, Xend, Ystart, Yend, Xswipe;
-    String path;
-    File filepath;
-    private static final String DEBUG_TAG = "Gestures";
-    private GestureDetectorCompat mDetector;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.welcome_fragment, container,false);
-        panoWidgetView = (VrPanoramaView) v.findViewById(R.id.pano_view);
-        b1 = (Button) v.findViewById(R.id.btncount);
-        ed1 = (EditText) v.findViewById(R.id.editcount);
-        touchListener(v);
-        Context c = getContext();
-        path = c.getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()).getAbsolutePath();
-        filepath = new File(path + "touch.csv");
-        Log.d(TAG, "onCreate: Initializing touch services");
+        View v = inflater.inflate(R.layout.welcome_fragment, container, false);
 
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String value = ed1.getText().toString();
-                try {
-
-                    FileWriter fw = new FileWriter(filepath,true);
-                    fw.append("Count of objects found"+value);
-                    fw.flush();
-                    fw.close();
-                    //Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-
-            }
-        });
         return v;
 
 
     }
-
-    private void touchListener(View view) {
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getActionMasked() == MotionEvent.ACTION_DOWN){
-                    Xstart  = event.getX();
-                    Ystart = event.getY();
-                    Xswipe = Xstart;
-                    String adown = "Xstart:"+String.valueOf(Xstart)+ ", Ystart: "+ String.valueOf(Ystart)+ ", Pressure: "+ event.getPressure()+"\n";
-
-                    try {
-
-                        FileWriter fw = new FileWriter(filepath,true);
-                        fw.append(adown);
-                        fw.flush();
-                        fw.close();
-                        //Toast.makeText(getActivity(),"Ystart: "+Ystart,Toast.LENGTH_SHORT).show();
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    //Toast.makeText(getActivity(), "start"+String.valueOf(Xstart)+"  "+String.valueOf(Ystart), Toast.LENGTH_SHORT).show();
-                }
-                if(event.getActionMasked() == MotionEvent.ACTION_UP){
-                    Xend = event.getX();
-                    Yend = event.getY();
-                    Xswipe = Xend;
-
-                    String aup = "Xend"+String.valueOf(Xend)+ ", Yend: "+ String.valueOf(Yend)+ ", Pressure: "+ event.getPressure()+ "\n";
-
-                    try {
-
-                        FileWriter fw = new FileWriter(filepath,true);
-                        fw.append(aup);
-                        fw.flush();
-                        fw.close();
-                        //Toast.makeText(getActivity(),"X end: "+Xend,Toast.LENGTH_SHORT).show();
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                   // Toast.makeText(getActivity(),"Pressure:" +event.getPressure(),Toast.LENGTH_SHORT).show();
-                }
-                //Toast.makeText(getContext() ,"The x and Y are:"++" "+,Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-    }
-
-    @Override
-    public void onPause() {
-        panoWidgetView.pauseRendering();
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        panoWidgetView.resumeRendering();
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        // Destroy the widget and free memory.
-        panoWidgetView.shutdown();
-        super.onDestroy();
-    }
-
-    private synchronized void loadPanoImage() {
-        ImageLoaderTask task = backgroundImageLoaderTask;
-        if (task != null && !task.isCancelled()) {
-            // Cancel any task from a previous loading.
-            task.cancel(true);
-        }
-
-        // pass in the name of the image to load from assets.
-        VrPanoramaView.Options viewOptions = new VrPanoramaView.Options();
-        viewOptions.inputType = VrPanoramaView.Options.TYPE_STEREO_OVER_UNDER;
-
-        // use the name of the image in the assets/ directory.
-        String panoImageName = "converted.jpg";
-
-        // create the task passing the widget view and call execute to start.
-        task = new ImageLoaderTask(panoWidgetView, viewOptions, panoImageName);
-        task.execute(getActivity().getAssets());
-        backgroundImageLoaderTask = task;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        loadPanoImage();
-    }
-
 
 }

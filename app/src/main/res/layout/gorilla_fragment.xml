@@ -1,51 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="10dp"
+    android:orientation="vertical"
     android:layout_marginStart="15dp"
-    android:layout_marginLeft="15dp"
     android:layout_marginEnd="15dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginEnd="10dp">
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/para"
-            android:textSize="20sp"
-            android:textAlignment="textStart"
-            android:textStyle="bold"
-            android:gravity="start"
 
-            />
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/para"
+                android:textSize="20sp"
+                android:textAlignment="textStart"
+                android:textStyle="bold"
+                android:maxLines="6"
+                android:scrollbars="vertical"
+                android:gravity="start"
+                />
 
-        <EditText
-            android:id="@+id/edtext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="write the above paragraph here.."
-            android:inputType="textVisiblePassword|textMultiLine"
-            android:layout_below="@id/text1"
-            />
 
-        <Button
-            android:id="@+id/btnsubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit"
-            android:layout_below="@id/edtext"
-            android:layout_alignEnd="@id/edtext"
-            android:layout_alignRight="@id/edtext"/>
+            <EditText
+                android:id="@+id/edtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="write the above paragraph here.."
+                android:inputType="textVisiblePassword|textMultiLine"
+                android:layout_below="@id/text1"
+                />
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/btnsubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:layout_below="@id/edtext"
+                android:layout_alignEnd="@id/edtext"
+                android:layout_alignRight="@id/edtext"/>
 
-</ScrollView>
+
+</LinearLayout>

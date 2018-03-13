@@ -34,7 +34,9 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,9 +47,9 @@
         <service android:name=".AccelerometerLogger" />
         <service android:name=".ActivityRecognizedService" />
 
-
         <activity android:name=".expe" />
-        <activity android:name=".lastact"></activity>
+        <activity android:name=".lastact" />
+        <activity android:name=".search"></activity>
     </application>
 
 </manifest>

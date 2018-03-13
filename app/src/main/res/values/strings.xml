@@ -32,4 +32,8 @@
     <string name="para">Pervasive Health Conference is a premier international forum with specific focus on technologies and human factors related to the
     use of ubiquitous computing in healthcare and wellbeing. The overall goal of Pervasive Health Conference is to take a multidisciplinary approach to
     Pervasive Healthcare Technology research and development.</string>
+    <string name="dialog_message">Please fill in the count in the given blank. </string>
+    <string name="dialog">Input Error!</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>
