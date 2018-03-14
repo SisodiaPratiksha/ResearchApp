@@ -43,7 +43,7 @@ public class expe extends AppCompatActivity {
                 String taskexpe = ed1.getText().toString();
                 String dayexpe = ed2.getText().toString();
 
-                String expe = "Task Experience: " + taskexpe + " \n Day Experience: " + dayexpe + "\n";
+                String expe = "Day Experience: " + taskexpe + " \n Task Experience: " + dayexpe + "\n";
 
                 try {
 

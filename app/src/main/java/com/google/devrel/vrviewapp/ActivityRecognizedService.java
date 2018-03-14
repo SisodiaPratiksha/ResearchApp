@@ -53,7 +53,7 @@ public class ActivityRecognizedService extends IntentService {
                     try {
 
                         FileWriter fw = new FileWriter(filepath,true);
-                        fw.append("In Vehicle: "+vehicle);
+                        fw.append("In Vehicle: "+vehicle+"\n");
                         fw.flush();
                         fw.close();
                         //Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
@@ -71,7 +71,7 @@ public class ActivityRecognizedService extends IntentService {
                     try {
 
                         FileWriter fw = new FileWriter(filepath,true);
-                        fw.append("On Bicycle: "+bicycle);
+                        fw.append("On Bicycle: "+bicycle+"\n");
                         fw.flush();
                         fw.close();
                         //Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
@@ -87,7 +87,7 @@ public class ActivityRecognizedService extends IntentService {
                     try {
 
                         FileWriter fw = new FileWriter(filepath,true);
-                        fw.append("On Foot: "+foot);
+                        fw.append("On Foot: "+foot+"\n");
                         fw.flush();
                         fw.close();
                         //Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
@@ -104,7 +104,7 @@ public class ActivityRecognizedService extends IntentService {
                     try {
 
                         FileWriter fw = new FileWriter(filepath,true);
-                        fw.append("Running: "+running);
+                        fw.append("Running: "+running+"\n");
                         fw.flush();
                         fw.close();
                         //Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
@@ -122,7 +122,7 @@ public class ActivityRecognizedService extends IntentService {
                     try {
 
                         FileWriter fw = new FileWriter(filepath,true);
-                        fw.append("Still: "+still);
+                        fw.append("Still: "+still+"\n");
                         fw.flush();
                         fw.close();
                         //Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
@@ -140,7 +140,7 @@ public class ActivityRecognizedService extends IntentService {
                     try {
 
                         FileWriter fw = new FileWriter(filepath,true);
-                        fw.append("Tilting: "+tilting);
+                        fw.append("Tilting: "+tilting+"\n");
                         fw.flush();
                         fw.close();
                         //Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
@@ -158,7 +158,7 @@ public class ActivityRecognizedService extends IntentService {
                     try {
 
                         FileWriter fw = new FileWriter(filepath,true);
-                        fw.append("Walking: "+walking);
+                        fw.append("Walking: "+walking+"\n");
                         fw.flush();
                         fw.close();
                         //Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();

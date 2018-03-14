@@ -89,7 +89,7 @@ public class GorillaFragment extends Fragment {
                         else {
                             try {
 
-                                FileWriter fw = new FileWriter(filepath);
+                                FileWriter fw = new FileWriter(filepath,true);
                                 fw.append(String.valueOf(counter) + "\n" + answer + "\n");
                                 fw.flush();
                                 fw.close();

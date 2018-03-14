@@ -59,12 +59,6 @@ public class TouchImageView extends ImageView {
 
     public TouchImageView(Context context) {
         super(context);
-        TextView textView = new TextView(context);
-        textView.setText("the text");
-        textView.setTextSize(30);
-        textView.setTextColor(Color.BLACK);
-        LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        textView.setLayoutParams(textViewLayoutParams);
         sharedConstructing(context);
     }
 
@@ -150,7 +144,7 @@ public class TouchImageView extends ImageView {
 
                         Xend  = event.getX();
                         Yend = event.getY();
-
+                        writeend();
                         break;
 
                     case MotionEvent.ACTION_POINTER_UP:

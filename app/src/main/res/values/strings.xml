@@ -18,7 +18,7 @@
     <string name="app_name">StressBuzz</string>
     <string name="action_settings">Settings</string>
     <string name="venue">Type the Text</string>
-    <string name="welcome">"Search All"</string>
+    <string name="welcome">"Welcome Page"</string>
     <string name="welcome_title">Welcome</string>
     <string name="welcome_description">Google Codelabs provide a guided, tutorial, hands-on coding experience. Most codelabs will
       step you through the process of building a small application, or adding a new feature to an
