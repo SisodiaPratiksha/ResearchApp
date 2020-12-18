@@ -87,7 +87,7 @@ public class ActivityRecognizedService extends IntentService {
                     try {
 
                         FileWriter fw = new FileWriter(filepath,true);
-                        fw.append("On Foot: "+foot+"\n");
+                        fw.append("On Foot: "+foot+"\n\n");
                         fw.flush();
                         fw.close();
                         //Toast.makeText(getActivity(),"Count of objects "+value,Toast.LENGTH_SHORT).show();
